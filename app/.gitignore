@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+.cache/
+.npm/
+node_modules/
+build/
+dist/
+tmp/
+temp/
+.env
+*.sqlite
+.bash_history
