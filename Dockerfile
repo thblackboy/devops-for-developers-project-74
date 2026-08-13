@@ -1,2 +1,2 @@
-FROM node:20.12.2
+FROM node:24-bookworm
 WORKDIR /app

@@ -4,7 +4,7 @@
   "type": "module",
   "description": "javascript-fastify-blog",
   "engines": {
-    "node": ">=20.6.1"
+    "node": ">=24.0"
   },
   "scripts": {
     "migrate": "sequelize db:migrate --config config/config.cjs --migrations-path server/db/migrations --models-path server/db/models --seeders-path server/db/seeders",
