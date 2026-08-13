@@ -1,12 +1,41 @@
 services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   app:
     environment:
       NODE_ENV: development
     build:
       context: .
       dockerfile: Dockerfile 
-    command: make dev
+    command: make start
     ports:
       - "8080:8080"
     volumes:
       - "./app:/app"
+    env_file:
+      - ./app/.env
+    depends_on:
+      - db
+  caddy:
+    image: caddy:2.11.4-alpine
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/services/caddy:/etc/caddy
+volumes:
+  pgdata:
