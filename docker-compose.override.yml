@@ -14,6 +14,11 @@ services:
   app:
     environment:
       NODE_ENV: development
+      DATABASE_NAME: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_PORT: 5432
+      DATABASE_HOST: db
     build:
       context: .
       dockerfile: Dockerfile 
@@ -22,8 +27,6 @@ services:
       - "8080:8080"
     volumes:
       - "./app:/app"
-    env_file:
-      - ./app/.env
     depends_on:
       - db
   caddy:
