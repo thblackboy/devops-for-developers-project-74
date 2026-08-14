@@ -28,7 +28,8 @@ services:
     volumes:
       - "./app:/app"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   caddy:
     image: caddy:2.11.4-alpine
     restart: unless-stopped
@@ -40,5 +41,7 @@ services:
       - "443:443/udp"
     volumes:
       - $PWD/services/caddy:/etc/caddy
+    depends_on:
+      - app
 volumes:
   pgdata:
